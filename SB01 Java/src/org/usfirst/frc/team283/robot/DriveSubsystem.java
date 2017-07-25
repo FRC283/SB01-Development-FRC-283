@@ -1,5 +1,7 @@
 package org.usfirst.frc.team283.robot;
 
+import org.usfirst.frc.team283.robot.JoystickSchema.Schema;
+
 import edu.wpi.first.wpilibj.Talon;
 
 public class DriveSubsystem 
@@ -27,6 +29,11 @@ public class DriveSubsystem
 		backRightController = new Talon(Constants.BACK_RIGHT_PORT);
 	}
 	
+	@Schema(JoystickSchema.LEFT_Y)
+	@Schema(JoystickSchema.LEFT_X)
+	@Schema(JoystickSchema.RIGHT_Y)
+	@Schema(JoystickSchema.RIGHT_X)
+	@Schema(JoystickSchema.X)
 	/**
 	 * Controls the drive of the robot
 	 * @param leftYMagnitude - Main control for left
@@ -65,6 +72,8 @@ public class DriveSubsystem
 		}
 	}
 	
+	@Schema(JoystickSchema.BACK)
+	@Schema(JoystickSchema.START)
 	/**
 	 * This function controls the drive mode
 	 * @param tankButton - The state of button to switch to tank mode

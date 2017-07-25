@@ -36,10 +36,10 @@ public class CannonSubsystem
 		fireTimer = new Timer();
 	}
 	
+	@Schema (JoystickSchema.RIGHT_BUMPER)
 	/**
 	 * Begins filling if possible
 	 */
-	@Schema (JoystickSchema.RIGHT_BUMPER)
 	public void fillInit()
 	{
 		if (!fillBool)
