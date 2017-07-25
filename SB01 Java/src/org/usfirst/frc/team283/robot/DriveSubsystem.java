@@ -40,10 +40,10 @@ public class DriveSubsystem
 		if (driveMode == TANK) //X Magnitudes can be ignored
 		{
 			//The front and back motors of both sides are set to the same values
-			frontLeftController.set(leftYMagnitude);
-			frontRightController.set(rightYMagnitude);
-			backLeftController.set(leftYMagnitude);
-			backRightController.set(rightYMagnitude);
+			frontLeftController.set(Rescaler.rescale(DEADZONE, 0, 1, 0, leftYMagnitude) * (slow ? SLOWSPEED : 1));
+			frontRightController.set(Rescaler.rescale(DEADZONE, 0, 1, 0, rightYMagnitude) * (slow ? SLOWSPEED : 1));
+			backLeftController.set(Rescaler.rescale(DEADZONE, 0, 1, 0, leftYMagnitude) * (slow ? SLOWSPEED : 1));
+			backRightController.set(Rescaler.rescale(DEADZONE, 0, 1, 0, rightYMagnitude) * (slow ? SLOWSPEED : 1));
 		}
 		else if (driveMode == MECHANUM) //X magnitudes are used to control robot
 		{
