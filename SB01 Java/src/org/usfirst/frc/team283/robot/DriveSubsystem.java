@@ -37,17 +37,31 @@ public class DriveSubsystem
 	 */
 	public void drive(double leftYMagnitude, double rightYMagnitude, double leftXMagnitude, double rightXMagnitude, boolean slow)
 	{
+		double lym = Rescaler.rescale(DEADZONE, 0, 1, 0, leftYMagnitude);
+		double rym = Rescaler.rescale(DEADZONE, 0, 1, 0, rightYMagnitude);
+		double lxm = Rescaler.rescale(DEADZONE, 0, 1, 0, leftXMagnitude);
+		double rxm = Rescaler.rescale(DEADZONE, 0, 1, 0, rightXMagnitude);
+		
 		if (driveMode == TANK) //X Magnitudes can be ignored
 		{
 			//The front and back motors of both sides are set to the same values
-			frontLeftController.set(Rescaler.rescale(DEADZONE, 0, 1, 0, leftYMagnitude) * (slow ? SLOWSPEED : 1));
-			frontRightController.set(Rescaler.rescale(DEADZONE, 0, 1, 0, rightYMagnitude) * (slow ? SLOWSPEED : 1));
-			backLeftController.set(Rescaler.rescale(DEADZONE, 0, 1, 0, leftYMagnitude) * (slow ? SLOWSPEED : 1));
-			backRightController.set(Rescaler.rescale(DEADZONE, 0, 1, 0, rightYMagnitude) * (slow ? SLOWSPEED : 1));
+			frontLeftController.set(lym);
+			frontRightController.set(rym);
+			backLeftController.set(lym);
+			backRightController.set(rym);
 		}
 		else if (driveMode == MECHANUM) //X magnitudes are used to control robot
 		{
 			//Will be coded later
+			/* The assumed layout:
+			 * \\  //
+			 *   []
+			 * //  \\
+			 */
+			frontLeftController.set((lym + lxm)  * (slow ? SLOWSPEED : 1));
+			frontRightController.set((rym - rxm) * (slow ? SLOWSPEED : 1));
+			backLeftController.set((lym - lxm)  * (slow ? SLOWSPEED : 1));
+			backRightController.set((rym + rxm)  * (slow ? SLOWSPEED : 1));
 		}
 	}
 	
