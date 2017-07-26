@@ -1,5 +1,9 @@
 package org.usfirst.frc.team283.robot;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +11,7 @@ import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 import javax.imageio.ImageIO;
 
@@ -18,9 +23,8 @@ public class JoystickSchema
 {
 	public static void main(String[] args)
 	{
-		JoystickSchema js = new JoystickSchema("org.usfirst.frc.team283.robot.CannonSubsystem", "org.usfirst.frc.team283.robot.DriveSubsystem", "org.usfirst.frc.team283.robot.ElevatorSubsystem");
+		JoystickSchema js = new JoystickSchema("SB01 Auto-Generated Controls", "org.usfirst.frc.team283.robot.CannonSubsystem", "org.usfirst.frc.team283.robot.DriveSubsystem", "org.usfirst.frc.team283.robot.ElevatorSubsystem");
 		js.generate();
-		js.loadImage();
 	}
 	
 	//Logitech Ports (Default)
@@ -68,6 +72,12 @@ public class JoystickSchema
 		//Digital
 		//Analog
 	
+	private final int LABEL_BASE_X = 100;
+	private final int LABEL_BASE_Y = 100;
+	private final int LABEL_INCR = 10;
+	private final int TITLE_X = 50;
+	private final int TITLE_Y = 50;
+	
 	/** What kind of controller does the driver and operator use? */
 	public enum driverMode
 	{
@@ -103,13 +113,17 @@ public class JoystickSchema
 	
 	/** Our stored references to all classes in this project. Holds a max of 20 for now */
 	Class<?>[] classes = new Class[20];
+	/** Printed at the top of the Schema */
+	String schemaTitle = "";
 	
 	/**
 	 * Takes a list of class names and fetches classes based on that
 	 * @param classNames - List of class names
+	 * @param title - printed at the top of schema
 	 */
-	JoystickSchema(String... classNames)
+	JoystickSchema(String title, String... classNames)
 	{
+		this.schemaTitle = title;
 		for (int i = 0; i < classNames.length; i++)
 		{
 			try 
@@ -127,8 +141,9 @@ public class JoystickSchema
 	 * Takes a list of instantiated classes and stores them
 	 * @deprecated
 	 * @param classInstances - List of objects of desired classes
+	 * @param title - printed at the top of schema
 	 */
-	JoystickSchema(Object... classInstances)
+	JoystickSchema(String title, Object... classInstances)
 	{
 		for (int i = 0; i < classInstances.length; i++)
 		{
@@ -137,10 +152,25 @@ public class JoystickSchema
 	}
 	
 	/**
-	 * Creates an updated control schema/image based on stored class annotations
+	 * Creates an updated control schema/image based on stored class annotations 
 	 */
 	public void generate()
 	{
+		BufferedImage img = null;
+		try 
+		{
+		    img = ImageIO.read(new File("controlsSchemaBase.png"));
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		Graphics g = img.getGraphics();
+	    g.setFont(new Font("Consolas", Font.BOLD, 15));
+	    g.setColor(Color.BLACK);
+		g.drawString(this.schemaTitle, TITLE_X, TITLE_Y);
+		 g.setFont(new Font("Consolas", Font.PLAIN, 15));
+		g.drawString(new Date().toString(), TITLE_X, TITLE_Y + g.getFont().getSize());
 		for (Class<?> c : classes)
 		{
 			if (c !=null)
@@ -155,6 +185,7 @@ public class JoystickSchema
 						for (Schema s : allSchemas.value())
 						{
 							System.out.println("Function: " + m.getName() + ", Input Number: " + s.value());
+							g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + (s.value() * LABEL_INCR));
 						}
 					}
 				}
@@ -162,31 +193,14 @@ public class JoystickSchema
 		}
 		
 		
-		
-	}
-	
-	/**  */
-	public void loadImage()
-	{
-		BufferedImage img = null;
-		try 
-		{
-		    img = ImageIO.read(new File("controlsSchemaBase.png"));
-		    ImageIO.write(img, "png", new File("ControlsImage.png"));
+		g.dispose();
+	    try 
+	    {
+			ImageIO.write(img, "png", new File("ControlsImage.png"));
 		} 
-		catch (IOException e) 
-		{
+	    catch (IOException e) 
+	    {
 			e.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Adds the specified text at the specified index
-	 * @param index - Number to place text by
-	 * @param text - Text (Description or Function Name)
-	 */
-	public void addToImage(int index, String text)
-	{
-		
 	}
 }
