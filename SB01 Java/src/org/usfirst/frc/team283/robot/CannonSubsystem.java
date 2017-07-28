@@ -36,7 +36,7 @@ public class CannonSubsystem
 		fireTimer = new Timer();
 	}
 	
-	@Schema (JoystickSchema.RIGHT_BUMPER)
+	@Schema(JoystickSchema.RIGHT_BUMPER)
 	/**
 	 * Begins filling if possible
 	 */
@@ -75,7 +75,7 @@ public class CannonSubsystem
 		}
 	}
 	
-	@Schema (JoystickSchema.RIGHT_TRIGGER)
+	@Schema(JoystickSchema.RIGHT_TRIGGER)
 	/**
 	 * Fires the cannon
 	 * @param override - The state of the button used to override the pressure check

@@ -3,7 +3,6 @@ package org.usfirst.frc.team283.robot;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +22,7 @@ public class JoystickSchema
 {
 	public static void main(String[] args)
 	{
-		JoystickSchema js = new JoystickSchema("SB01 Auto-Generated Controls", "org.usfirst.frc.team283.robot.CannonSubsystem", "org.usfirst.frc.team283.robot.DriveSubsystem", "org.usfirst.frc.team283.robot.ElevatorSubsystem");
+		JoystickSchema js = new JoystickSchema("SB01 Auto-Generated Controls", "org.usfirst.frc.team283.robot.DriveSubsystem", "org.usfirst.frc.team283.robot.CannonSubsystem", "org.usfirst.frc.team283.robot.ElevatorSubsystem");
 		js.generate();
 	}
 	
@@ -72,11 +71,11 @@ public class JoystickSchema
 		//Digital
 		//Analog
 	
-	private final int LABEL_BASE_X = 100;
-	private final int LABEL_BASE_Y = 100;
-	private final int LABEL_INCR = 10;
-	private final int TITLE_X = 50;
-	private final int TITLE_Y = 50;
+	private final int LABEL_BASE_X = 835;
+	private final int LABEL_BASE_Y = 139;
+	private final int LABEL_INCR = 42;
+	private final int TITLE_X = 36;
+	private final int TITLE_Y = 78;
 	
 	/** What kind of controller does the driver and operator use? */
 	public enum driverMode
@@ -99,7 +98,7 @@ public class JoystickSchema
 		 * Possible Values: are above
 		 */
 		int value(); //Since this is named value, you can simply input it next to the annotation
-		//String desc(); Possibily consider including this in a later version. Purpose would be to have better naming
+		String desc() default ""; //Possibly consider including this in a later version. Purpose would be to have better naming
 	}
 	
 	@Retention(RetentionPolicy.RUNTIME)
@@ -159,33 +158,42 @@ public class JoystickSchema
 		BufferedImage img = null;
 		try 
 		{
-		    img = ImageIO.read(new File("controlsSchemaBase.png"));
+		    img = ImageIO.read(new File("ControlsSchemaBase.png"));
 		} 
 		catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
 		Graphics g = img.getGraphics();
-	    g.setFont(new Font("Consolas", Font.BOLD, 15));
+	    g.setFont(new Font("Consolas", Font.BOLD, 35));
 	    g.setColor(Color.BLACK);
-		g.drawString(this.schemaTitle, TITLE_X, TITLE_Y);
-		 g.setFont(new Font("Consolas", Font.PLAIN, 15));
-		g.drawString(new Date().toString(), TITLE_X, TITLE_Y + g.getFont().getSize());
+		g.drawString(this.schemaTitle + " - " + new Date(), TITLE_X, TITLE_Y);
+		g.setFont(new Font("Consolas", Font.PLAIN, 30));
 		for (Class<?> c : classes)
 		{
-			if (c !=null)
+			if (c != null)
 			{
 				Method[] methods = c.getDeclaredMethods();
 		
 				for (Method m : methods)
 				{
+					System.out.println("Currently checking Annotations of method: " + m.getName());
 					Schemas allSchemas = m.getAnnotation(Schemas.class);
+					System.out.println("Detected raw annots: " + allSchemas);
 					if (allSchemas != null)
 					{
 						for (Schema s : allSchemas.value())
 						{
-							System.out.println("Function: " + m.getName() + ", Input Number: " + s.value());
-							g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + (s.value() * LABEL_INCR));
+							if (s.desc().equals(""))
+							{
+								System.out.println("blank");
+								g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + (s.value() * LABEL_INCR));
+							}
+							else
+							{
+								System.out.println("desc: " + s.desc());
+								g.drawString(s.desc(), LABEL_BASE_X, LABEL_BASE_Y + (s.value() * LABEL_INCR));
+							}
 						}
 					}
 				}

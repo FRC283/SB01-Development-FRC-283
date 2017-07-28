@@ -28,8 +28,8 @@ public class ElevatorSubsystem
 		controller = new Talon(Constants.ELEVATOR_PORT);
 	}
 	
-	@Schema(JoystickSchema.LEFT_TRIGGER)
-	@Schema(JoystickSchema.LEFT_BUMPER)
+	@Schema(value = JoystickSchema.LEFT_TRIGGER, desc = "elevator down")
+	@Schema(value = JoystickSchema.LEFT_BUMPER, desc = "elevator up")
 	/**
 	 * Controls the up and down motion of the elevator
 	 * @param up - The state of the button assigned to signal up
