@@ -6,16 +6,16 @@ public class Constants
 		public static final int LOGITECH_PORT = 0;
 	//Logitech Ports
 		//Buttons
-			public static final int A = 0;
-			public static final int B = 1;
-			public static final int X = 2;
-			public static final int Y = 3;
-			public static final int LEFT_BUMPER = 4;
-			public static final int RIGHT_BUMPER = 5;
-			public static final int BACK = 6;
-			public static final int START = 7;
-			public static final int LEFT_STICK_BUTTON = 8;
-			public static final int RIGHT_STICK_BUTTON = 9;
+			public static final int A = 1;
+			public static final int B = 2;
+			public static final int X = 3;
+			public static final int Y = 4;
+			public static final int LEFT_BUMPER = 5;
+			public static final int RIGHT_BUMPER = 6;
+			public static final int BACK = 7;
+			public static final int START = 8;
+			public static final int LEFT_STICK_BUTTON = 9;
+			public static final int RIGHT_STICK_BUTTON = 10;
 		//Sticks
 			public static final int LEFT_X = 0;
 			public static final int LEFT_Y = 1;

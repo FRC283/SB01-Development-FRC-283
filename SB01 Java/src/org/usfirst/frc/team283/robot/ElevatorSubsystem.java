@@ -17,9 +17,9 @@ public class ElevatorSubsystem
 	/** Speed for transversal of worm screw, also controls polarity */
 	private static final double SPEED = 1;
 	
-	DigitalInput frontLimit;
-	DigitalInput backLimit;
-	Talon controller;
+	private DigitalInput frontLimit;
+	private DigitalInput backLimit;
+	private Talon controller;
 	
 	ElevatorSubsystem()
 	{
@@ -37,6 +37,9 @@ public class ElevatorSubsystem
 	 */
 	public void raiseLower(boolean up, boolean down)
 	{
+		System.out.println("Status of Forward limit: " + frontLimit.get());
+		System.out.println("Status of Backward limit: " + backLimit.get());
+		
 		if (up) //If attempting to go up
 		{
 			if (down) //But down is held
