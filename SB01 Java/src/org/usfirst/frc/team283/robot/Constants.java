@@ -26,9 +26,9 @@ public class Constants
 	//Robot Ports
 		//PWM
 			public static final int ELEVATOR_PORT = 1;
-			public static final int FRONT_LEFT_PORT = 2; //Drive
-			public static final int FRONT_RIGHT_PORT = 3; //Drive
-			public static final int BACK_LEFT_PORT = 4; //Drive
+			public static final int FRONT_LEFT_PORT = 3; //Drive
+			public static final int FRONT_RIGHT_PORT = 4; //Drive
+			public static final int BACK_LEFT_PORT = 2; //Drive
 			public static final int BACK_RIGHT_PORT = 5; //Drive
 		//DIO
 			public static final int BACK_SWITCH = 0; //Elevator
