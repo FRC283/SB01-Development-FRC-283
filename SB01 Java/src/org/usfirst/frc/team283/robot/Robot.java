@@ -16,9 +16,9 @@ public class Robot extends IterativeRobot
 	@Override
 	public void robotInit() 
 	{
-		DriveSubsystem driveSubsystem = new DriveSubsystem();
-		ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-		CannonSubsystem cannonSubsystem = new CannonSubsystem();
+		driveSubsystem = new DriveSubsystem();
+		elevatorSubsystem = new ElevatorSubsystem();
+		cannonSubsystem = new CannonSubsystem();
 		
 		logitech = new Joystick(Constants.LOGITECH_PORT);
 	}
