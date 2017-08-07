@@ -1,5 +1,8 @@
 package org.usfirst.frc.team283.robot;
 
+
+import org.usfirst.frc.team283.robot.JoystickSchema.Schema;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 
@@ -25,12 +28,14 @@ public class ElevatorSubsystem
 		controller = new Talon(Constants.ELEVATOR_PORT);
 	}
 	
+	@Schema(value = JoystickSchema.LEFT_TRIGGER, desc = "elevator down")
+	@Schema(value = JoystickSchema.LEFT_BUMPER, desc = "elevator up")
 	/**
 	 * Controls the up and down motion of the elevator
 	 * @param up - The state of the button assigned to signal up
 	 * @param down - The state of the button assigned to signal down
 	 */
-	public void raise(boolean up, boolean down)
+	public void raiseLower(boolean up, boolean down)
 	{
 		if (up) //If attempting to go up
 		{
