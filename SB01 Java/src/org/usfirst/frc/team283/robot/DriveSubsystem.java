@@ -1,11 +1,13 @@
 package org.usfirst.frc.team283.robot;
 
+import org.usfirst.frc.team283.robot.JoystickSchema.Schema;
+
 import edu.wpi.first.wpilibj.Talon;
 
 public class DriveSubsystem 
 {
 	private static final double DEADZONE = 0.1;
-	//The following two constants act as alternate names for bool values
+	//The following two constants act as alias for bool values
 	private static final boolean MECHANUM = false;
 	private static final boolean TANK = true;
 	/** Speed multiplier for slow speed */
@@ -27,6 +29,11 @@ public class DriveSubsystem
 		backRightController = new Talon(Constants.BACK_RIGHT_PORT);
 	}
 	
+	@Schema(JoystickSchema.LEFT_Y)
+	@Schema(JoystickSchema.LEFT_X)
+	@Schema(JoystickSchema.RIGHT_Y)
+	@Schema(JoystickSchema.RIGHT_X)
+	@Schema(value = JoystickSchema.X, desc = "slow speed")
 	/**
 	 * Controls the drive of the robot
 	 * @param leftYMagnitude - Main control for left
@@ -65,6 +72,8 @@ public class DriveSubsystem
 		}
 	}
 	
+	@Schema(value = JoystickSchema.BACK, desc = "tank mode")
+	@Schema(value = JoystickSchema.START, desc = "mechanum mode")
 	/**
 	 * This function controls the drive mode
 	 * @param tankButton - The state of button to switch to tank mode
