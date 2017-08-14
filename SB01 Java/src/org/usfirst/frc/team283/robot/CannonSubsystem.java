@@ -59,7 +59,7 @@ public class CannonSubsystem
 	 */
 	public void fillPeriodic()
 	{
-		if (pressureSwitch.get() || fillTimer.get() > FILL_TIMEOUT) //If we have reached pressure or reached timeout
+		if (!pressureSwitch.get() || fillTimer.get() > FILL_TIMEOUT) //If we have reached pressure or reached timeout
 		{
 			fillSolenoid.set(CLOSED); //Stop filling air
 			fillTimer.stop(); //Restart timer
@@ -73,6 +73,7 @@ public class CannonSubsystem
 		{
 			//Do nothing, continue filling
 		}
+		System.out.println("Pressure Switch : " + pressureSwitch.get());
 	}
 	
 	@Schema(JoystickSchema.RIGHT_TRIGGER)
@@ -84,7 +85,7 @@ public class CannonSubsystem
 	{
 		if (!fireBool)
 		{
-			if (pressureSwitch.get() || override) //If we're ready to fire, or we override
+			if (!pressureSwitch.get() || override) //If we're ready to fire, or we override
 			{
 				fireSolenoid.set(OPEN); //Fire
 				System.out.println("YAR HAR HAR!");
