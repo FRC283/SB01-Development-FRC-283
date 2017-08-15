@@ -3,7 +3,7 @@ package org.usfirst.frc.team283.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 
-public class SB01 extends IterativeRobot 
+public class Robot extends IterativeRobot 
 {
 	private static final double TRIGGER_THRESHOLD = 0.5;
 	
@@ -16,9 +16,10 @@ public class SB01 extends IterativeRobot
 	@Override
 	public void robotInit() 
 	{
-		DriveSubsystem driveSubsystem = new DriveSubsystem();
-		ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-		CannonSubsystem cannonSubsystem = new CannonSubsystem();
+		System.out.println("robotInit called");
+		driveSubsystem = new DriveSubsystem();
+		elevatorSubsystem = new ElevatorSubsystem();
+		cannonSubsystem = new CannonSubsystem();
 		
 		logitech = new Joystick(Constants.LOGITECH_PORT);
 	}
@@ -37,6 +38,7 @@ public class SB01 extends IterativeRobot
 		cannonSubsystem.fillPeriodic();
 		cannonSubsystem.firePeriodic();
 		
+		System.out.println(); System.out.println(); System.out.println(); System.out.println(); System.out.println(); System.out.println(); System.out.println(); System.out.println();
 		System.out.println("==============================");
 	}
 }

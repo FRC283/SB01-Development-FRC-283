@@ -44,15 +44,22 @@ public class DriveSubsystem
 	 */
 	public void drive(double leftYMagnitude, double rightYMagnitude, double leftXMagnitude, double rightXMagnitude, boolean slow)
 	{
-		double lym = Rescaler.rescale(DEADZONE, 0, 1, 0, leftYMagnitude);
-		double rym = Rescaler.rescale(DEADZONE, 0, 1, 0, rightYMagnitude);
-		double lxm = Rescaler.rescale(DEADZONE, 0, 1, 0, leftXMagnitude);
-		double rxm = Rescaler.rescale(DEADZONE, 0, 1, 0, rightXMagnitude);
+		double lym = leftYMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, leftYMagnitude);
+		double rym = rightYMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, rightYMagnitude);
+		double lxm = leftXMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, leftXMagnitude);
+		double rxm = rightXMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, rightXMagnitude);
+		
+		System.out.println("Setting motors using the following rescaled values: ");
+		System.out.println("	Left Y: " + lym);
+		System.out.println("	Right Y: " + rym);
+		System.out.println("	Left X: " + lxm);
+		System.out.println("	Right X: " + rxm);
 		
 		if (driveMode == TANK) //X Magnitudes can be ignored
 		{
 			//The front and back motors of both sides are set to the same values
 			frontLeftController.set(lym);
+			System.out.println(frontLeftController.get());
 			frontRightController.set(rym);
 			backLeftController.set(lym);
 			backRightController.set(rym);
@@ -60,7 +67,7 @@ public class DriveSubsystem
 		else if (driveMode == MECHANUM) //X magnitudes are used to control robot
 		{
 			//Will be coded later
-			/* The assumed layout:
+			/* The layout:
 			 * \\  //
 			 *   []
 			 * //  \\
@@ -92,5 +99,6 @@ public class DriveSubsystem
 		}
 		//If both are true, the state does not change
 		//If both are false, the state does not change
+		System.out.println("Drive Mode: " + (driveMode ? "Tank" : "Mechanum"));
 	}
 }
