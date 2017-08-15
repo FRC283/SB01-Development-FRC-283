@@ -1,6 +1,6 @@
 package org.usfirst.frc.team283.robot;
 
-import org.usfirst.frc.team283.robot.JoystickSchema.Schema;
+import org.usfirst.frc.team283.robot.Scheme.Schema;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -36,7 +36,7 @@ public class CannonSubsystem
 		fireTimer = new Timer();
 	}
 	
-	@Schema(JoystickSchema.RIGHT_BUMPER)
+	@Schema(Scheme.RIGHT_BUMPER)
 	/**
 	 * Begins filling if possible
 	 */
@@ -75,7 +75,7 @@ public class CannonSubsystem
 		}
 	}
 	
-	@Schema(JoystickSchema.RIGHT_TRIGGER)
+	@Schema(Scheme.RIGHT_TRIGGER)
 	/**
 	 * Fires the cannon
 	 * @param override - The state of the button used to override the pressure check

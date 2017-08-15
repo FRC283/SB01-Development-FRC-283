@@ -1,6 +1,6 @@
 package org.usfirst.frc.team283.robot;
 
-import org.usfirst.frc.team283.robot.JoystickSchema.Schema;
+import org.usfirst.frc.team283.robot.Scheme.Schema;
 
 import edu.wpi.first.wpilibj.Talon;
 
@@ -29,11 +29,11 @@ public class DriveSubsystem
 		backRightController = new Talon(Constants.BACK_RIGHT_PORT);
 	}
 	
-	@Schema(JoystickSchema.LEFT_Y)
-	@Schema(JoystickSchema.LEFT_X)
-	@Schema(JoystickSchema.RIGHT_Y)
-	@Schema(JoystickSchema.RIGHT_X)
-	@Schema(value = JoystickSchema.X, desc = "slow speed")
+	@Schema(Scheme.LEFT_Y)
+	@Schema(Scheme.LEFT_X)
+	@Schema(Scheme.RIGHT_Y)
+	@Schema(Scheme.RIGHT_X)
+	@Schema(value = Scheme.X, desc = "slow speed")
 	/**
 	 * Controls the drive of the robot
 	 * @param leftYMagnitude - Main control for left
@@ -72,8 +72,8 @@ public class DriveSubsystem
 		}
 	}
 	
-	@Schema(value = JoystickSchema.BACK, desc = "tank mode")
-	@Schema(value = JoystickSchema.START, desc = "mechanum mode")
+	@Schema(value = Scheme.BACK, desc = "tank mode")
+	@Schema(value = Scheme.START, desc = "mechanum mode")
 	/**
 	 * This function controls the drive mode
 	 * @param tankButton - The state of button to switch to tank mode
