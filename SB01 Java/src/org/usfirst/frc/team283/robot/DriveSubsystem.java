@@ -1,6 +1,6 @@
 package org.usfirst.frc.team283.robot;
 
-import org.usfirst.frc.team283.robot.JoystickSchema.Schema;
+import org.usfirst.frc.team283.robot.Scheme.Schema;
 
 import edu.wpi.first.wpilibj.Talon;
 
@@ -29,11 +29,11 @@ public class DriveSubsystem
 		backRightController = new Talon(Constants.BACK_RIGHT_PORT);
 	}
 	
-	@Schema(JoystickSchema.LEFT_Y)
-	@Schema(JoystickSchema.LEFT_X)
-	@Schema(JoystickSchema.RIGHT_Y)
-	@Schema(JoystickSchema.RIGHT_X)
-	@Schema(value = JoystickSchema.X, desc = "slow speed")
+	@Schema(Scheme.LEFT_Y)
+	@Schema(Scheme.LEFT_X)
+	@Schema(Scheme.RIGHT_Y)
+	@Schema(Scheme.RIGHT_X)
+	@Schema(value = Scheme.X, desc = "slow speed")
 	/**
 	 * Controls the drive of the robot
 	 * @param leftYMagnitude - Main control for left
@@ -44,23 +44,44 @@ public class DriveSubsystem
 	 */
 	public void drive(double leftYMagnitude, double rightYMagnitude, double leftXMagnitude, double rightXMagnitude, boolean slow)
 	{
+<<<<<<< HEAD
 		double lym = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, leftYMagnitude);
 		double rym = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, rightYMagnitude) * -1;
 		double lxm = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, leftXMagnitude) * -1;
 		double rxm = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, rightXMagnitude);
+=======
+		double lym = leftYMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, leftYMagnitude);
+		double rym = rightYMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, rightYMagnitude);
+		double lxm = leftXMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, leftXMagnitude);
+		double rxm = rightXMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, rightXMagnitude);
+		
+		System.out.println("Setting motors using the following rescaled values: ");
+		System.out.println("	Left Y: " + lym);
+		System.out.println("	Right Y: " + rym);
+		System.out.println("	Left X: " + lxm);
+		System.out.println("	Right X: " + rxm);
+>>>>>>> refs/heads/layout
 		
 		if (driveMode == TANK) //X Magnitudes can be ignored
 		{
 			//The front and back motors of both sides are set to the same values
+<<<<<<< HEAD
 			frontLeftController.set(lym  * (slow ? SLOWSPEED : 1));
 			frontRightController.set(rym  * (slow ? SLOWSPEED : 1));
 			backLeftController.set(lym  * (slow ? SLOWSPEED : 1));
 			backRightController.set(rym * (slow ? SLOWSPEED : 1));
+=======
+			frontLeftController.set(lym);
+			System.out.println(frontLeftController.get());
+			frontRightController.set(rym);
+			backLeftController.set(lym);
+			backRightController.set(rym);
+>>>>>>> refs/heads/layout
 		}
 		else if (driveMode == MECHANUM) //X magnitudes are used to control robot
 		{
 			//Will be coded later
-			/* The assumed layout:
+			/* The layout:
 			 * \\  //
 			 *   []
 			 * //  \\
@@ -72,8 +93,8 @@ public class DriveSubsystem
 		}
 	}
 	
-	@Schema(value = JoystickSchema.BACK, desc = "tank mode")
-	@Schema(value = JoystickSchema.START, desc = "mechanum mode")
+	@Schema(value = Scheme.BACK, desc = "tank mode")
+	@Schema(value = Scheme.START, desc = "mechanum mode")
 	/**
 	 * This function controls the drive mode
 	 * @param tankButton - The state of button to switch to tank mode
@@ -92,5 +113,6 @@ public class DriveSubsystem
 		}
 		//If both are true, the state does not change
 		//If both are false, the state does not change
+		System.out.println("Drive Mode: " + (driveMode ? "Tank" : "Mechanum"));
 	}
 }
