@@ -3,11 +3,12 @@ package org.usfirst.frc.team283.robot;
 import org.usfirst.frc.team283.robot.Scheme.Schema;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem 
 {
 	private static final double DEADZONE = 0.1;
-	//The following two constants act as alias for bool values
+	//The following two constants act as aliases for bool values
 	private static final boolean MECHANUM = false;
 	private static final boolean TANK = true;
 	/** Speed multiplier for slow speed */
@@ -29,6 +30,12 @@ public class DriveSubsystem
 		backRightController = new Talon(Constants.BACK_RIGHT_PORT);
 	}
 	
+	/** Called once per cycle to update information */
+	void periodic()
+	{
+		SmartDashboard.putBoolean("Mechanum Mode Enabled?", !driveMode); //Since MECHANUM = false, !driveMode is true when in mechanum
+	}
+	
 	@Schema(Scheme.LEFT_Y)
 	@Schema(Scheme.LEFT_X)
 	@Schema(Scheme.RIGHT_Y)
@@ -44,17 +51,11 @@ public class DriveSubsystem
 	 */
 	public void drive(double leftYMagnitude, double rightYMagnitude, double leftXMagnitude, double rightXMagnitude, boolean slow)
 	{
-
-		double lym = leftYMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, leftYMagnitude);
-		double rym = rightYMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, rightYMagnitude);
-		double lxm = leftXMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, leftXMagnitude);
-		double rxm = rightXMagnitude; //Rescaler.rescale(DEADZONE, 0, 1, 0, rightXMagnitude);
 		
-		System.out.println("Setting motors using the following rescaled values: ");
-		System.out.println("	Left Y: " + lym);
-		System.out.println("	Right Y: " + rym);
-		System.out.println("	Left X: " + lxm);
-		System.out.println("	Right X: " + rxm);
+		double lym = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, leftYMagnitude);
+		double rym = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, rightYMagnitude) * -1;
+		double lxm = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, leftXMagnitude) * -1;
+		double rxm = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, rightXMagnitude);
 		
 		if (driveMode == TANK) //X Magnitudes can be ignored
 		{

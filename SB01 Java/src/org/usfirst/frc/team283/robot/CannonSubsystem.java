@@ -5,6 +5,7 @@ import org.usfirst.frc.team283.robot.Scheme.Schema;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CannonSubsystem
 {
@@ -34,6 +35,14 @@ public class CannonSubsystem
 		fillSolenoid = new Solenoid(Constants.FILL_PORT);
 		fillTimer = new Timer();
 		fireTimer = new Timer();
+	}
+	
+	/** Called once per cycle to update information */
+	void periodic()
+	{
+		this.fillPeriodic();
+		this.firePeriodic();
+		SmartDashboard.putBoolean("At Pressure", pressureSwitch.get());
 	}
 	
 	@Schema(Scheme.RIGHT_BUMPER)
