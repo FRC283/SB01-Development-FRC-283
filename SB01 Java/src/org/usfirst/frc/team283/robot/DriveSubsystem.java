@@ -1,13 +1,14 @@
 package org.usfirst.frc.team283.robot;
 
-import org.usfirst.frc.team283.robot.JoystickSchema.Schema;
+import org.usfirst.frc.team283.robot.Scheme.Schema;
 
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem 
 {
 	private static final double DEADZONE = 0.1;
-	//The following two constants act as alias for bool values
+	//The following two constants act as aliases for bool values
 	private static final boolean MECHANUM = false;
 	private static final boolean TANK = true;
 	/** Speed multiplier for slow speed */
@@ -29,11 +30,17 @@ public class DriveSubsystem
 		backRightController = new Talon(Constants.BACK_RIGHT_PORT);
 	}
 	
-	@Schema(JoystickSchema.LEFT_Y)
-	@Schema(JoystickSchema.LEFT_X)
-	@Schema(JoystickSchema.RIGHT_Y)
-	@Schema(JoystickSchema.RIGHT_X)
-	@Schema(value = JoystickSchema.X, desc = "slow speed")
+	/** Called once per cycle to update information */
+	void periodic()
+	{
+		SmartDashboard.putBoolean("Mechanum Mode Enabled?", !driveMode); //Since MECHANUM = false, !driveMode is true when in mechanum
+	}
+	
+	@Schema(Scheme.LEFT_Y)
+	@Schema(Scheme.LEFT_X)
+	@Schema(Scheme.RIGHT_Y)
+	@Schema(Scheme.RIGHT_X)
+	@Schema(value = Scheme.X, desc = "slow speed")
 	/**
 	 * Controls the drive of the robot
 	 * @param leftYMagnitude - Main control for left
@@ -44,6 +51,7 @@ public class DriveSubsystem
 	 */
 	public void drive(double leftYMagnitude, double rightYMagnitude, double leftXMagnitude, double rightXMagnitude, boolean slow)
 	{
+		
 		double lym = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, leftYMagnitude);
 		double rym = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, rightYMagnitude) * -1;
 		double lxm = Rescaler.rescale(DEADZONE, 1.0, 0.0, 1.0, leftXMagnitude) * -1;
@@ -60,7 +68,7 @@ public class DriveSubsystem
 		else if (driveMode == MECHANUM) //X magnitudes are used to control robot
 		{
 			//Will be coded later
-			/* The assumed layout:
+			/* The layout:
 			 * \\  //
 			 *   []
 			 * //  \\
@@ -72,8 +80,8 @@ public class DriveSubsystem
 		}
 	}
 	
-	@Schema(value = JoystickSchema.BACK, desc = "tank mode")
-	@Schema(value = JoystickSchema.START, desc = "mechanum mode")
+	@Schema(value = Scheme.BACK, desc = "tank mode")
+	@Schema(value = Scheme.START, desc = "mechanum mode")
 	/**
 	 * This function controls the drive mode
 	 * @param tankButton - The state of button to switch to tank mode
@@ -92,5 +100,6 @@ public class DriveSubsystem
 		}
 		//If both are true, the state does not change
 		//If both are false, the state does not change
+		System.out.println("Drive Mode: " + (driveMode ? "Tank" : "Mechanum"));
 	}
 }

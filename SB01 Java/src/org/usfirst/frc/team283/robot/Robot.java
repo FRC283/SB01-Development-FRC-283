@@ -2,6 +2,7 @@ package org.usfirst.frc.team283.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class Robot extends IterativeRobot 
 {
@@ -10,12 +11,14 @@ public class Robot extends IterativeRobot
 	DriveSubsystem driveSubsystem;
 	ElevatorSubsystem elevatorSubsystem;
 	CannonSubsystem cannonSubsystem;
+	NetworkTable table; //Carries the controls image to the smartdashboard
 	
 	Joystick logitech;
 	
 	@Override
 	public void robotInit() 
 	{
+		System.out.println("robotInit called");
 		driveSubsystem = new DriveSubsystem();
 		elevatorSubsystem = new ElevatorSubsystem();
 		cannonSubsystem = new CannonSubsystem();
@@ -34,9 +37,10 @@ public class Robot extends IterativeRobot
 		if (logitech.getRawAxis(Constants.RIGHT_TRIGGER) >= TRIGGER_THRESHOLD)
 			cannonSubsystem.fireInit(logitech.getRawButton(Constants.Y));
 	
-		cannonSubsystem.fillPeriodic();
-		cannonSubsystem.firePeriodic();
+		cannonSubsystem.periodic();
+		driveSubsystem.periodic();
 		
+		System.out.println(); System.out.println(); System.out.println(); System.out.println(); System.out.println(); System.out.println(); System.out.println(); System.out.println();
 		System.out.println("==============================");
 	}
 }

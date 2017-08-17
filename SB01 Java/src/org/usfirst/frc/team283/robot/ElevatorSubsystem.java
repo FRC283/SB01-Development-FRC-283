@@ -1,7 +1,7 @@
 package org.usfirst.frc.team283.robot;
 
 
-import org.usfirst.frc.team283.robot.JoystickSchema.Schema;
+import org.usfirst.frc.team283.robot.Scheme.Schema;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
@@ -17,9 +17,9 @@ public class ElevatorSubsystem
 	/** Speed for transversal of worm screw, also controls polarity */
 	private static final double SPEED = 1;
 	
-	DigitalInput frontLimit;
-	DigitalInput backLimit;
-	Talon controller;
+	private DigitalInput frontLimit;
+	private DigitalInput backLimit;
+	private Talon controller;
 	
 	ElevatorSubsystem()
 	{
@@ -28,8 +28,8 @@ public class ElevatorSubsystem
 		controller = new Talon(Constants.ELEVATOR_PORT);
 	}
 	
-	@Schema(value = JoystickSchema.LEFT_TRIGGER, desc = "elevator down")
-	@Schema(value = JoystickSchema.LEFT_BUMPER, desc = "elevator up")
+	@Schema(value = Scheme.LEFT_TRIGGER, desc = "elevator down")
+	@Schema(value = Scheme.LEFT_BUMPER, desc = "elevator up")
 	/**
 	 * Controls the up and down motion of the elevator
 	 * @param up - The state of the button assigned to signal up
@@ -37,6 +37,9 @@ public class ElevatorSubsystem
 	 */
 	public void raiseLower(boolean up, boolean down)
 	{
+		System.out.println("Status of Forward limit: " + frontLimit.get());
+		System.out.println("Status of Backward limit: " + backLimit.get());
+		
 		if (up) //If attempting to go up
 		{
 			if (down) //But down is held
