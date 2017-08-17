@@ -190,11 +190,11 @@ public class Scheme
 							System.out.println("		Annotation found at function \"" + m.getName() + "\" in class " + c.getName());
 							if (s.desc().equals(""))
 							{
-								g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + (s.value() * LABEL_INCR));
+								g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + ((s.value() - 1) * LABEL_INCR));
 							}
 							else
 							{
-								g.drawString(s.desc(), LABEL_BASE_X, LABEL_BASE_Y + (s.value() * LABEL_INCR));
+								g.drawString(s.desc(), LABEL_BASE_X, LABEL_BASE_Y + ((s.value() - 1) * LABEL_INCR));
 							}
 						}
 					}
@@ -203,11 +203,11 @@ public class Scheme
 						System.out.println("		Annotation found at function \"" + m.getName() + "\" in class " + c.getName());
 						if (singleSchema.desc().equals(""))
 						{
-							g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + (singleSchema.value() * LABEL_INCR));
+							g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + ((singleSchema.value() - 1) * LABEL_INCR));
 						}
 						else
 						{
-							g.drawString(singleSchema.desc(), LABEL_BASE_X, LABEL_BASE_Y + (singleSchema.value() * LABEL_INCR));
+							g.drawString(singleSchema.desc(), LABEL_BASE_X, LABEL_BASE_Y + ((singleSchema.value() - 1) * LABEL_INCR));
 						}
 					}
 				}

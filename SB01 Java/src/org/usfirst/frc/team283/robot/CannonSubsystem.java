@@ -68,7 +68,7 @@ public class CannonSubsystem
 	 */
 	public void fillPeriodic()
 	{
-		if (!pressureSwitch.get() || fillTimer.get() > FILL_TIMEOUT) //If we have reached pressure or reached timeout
+		if (pressureSwitch.get() || fillTimer.get() > FILL_TIMEOUT) //If we have reached pressure or reached timeout
 		{
 			fillSolenoid.set(CLOSED); //Stop filling air
 			fillTimer.stop(); //Restart timer
@@ -86,6 +86,7 @@ public class CannonSubsystem
 	}
 	
 	@Schema(Scheme.RIGHT_TRIGGER)
+	@Schema(value = Scheme.X, desc = "override fire (ignore tank pressure)")
 	/**
 	 * Fires the cannon
 	 * @param override - The state of the button used to override the pressure check
@@ -94,7 +95,7 @@ public class CannonSubsystem
 	{
 		if (!fireBool)
 		{
-			if (!pressureSwitch.get() || override) //If we're ready to fire, or we override
+			if (pressureSwitch.get() || override) //If we're ready to fire, or we override
 			{
 				fireSolenoid.set(OPEN); //Fire
 				System.out.println("YAR HAR HAR!");

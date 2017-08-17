@@ -36,11 +36,10 @@ public class DriveSubsystem
 		SmartDashboard.putBoolean("Mechanum Mode Enabled?", !driveMode); //Since MECHANUM = false, !driveMode is true when in mechanum
 	}
 	
-	@Schema(Scheme.LEFT_Y)
+	@Schema(value = Scheme.LEFT_Y, desc = "drive / push in for slow")
 	@Schema(Scheme.LEFT_X)
-	@Schema(Scheme.RIGHT_Y)
+	@Schema(value = Scheme.RIGHT_Y, desc = "drive / push in for slow")
 	@Schema(Scheme.RIGHT_X)
-	@Schema(value = Scheme.X, desc = "slow speed")
 	/**
 	 * Controls the drive of the robot
 	 * @param leftYMagnitude - Main control for left

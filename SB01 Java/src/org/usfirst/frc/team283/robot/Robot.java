@@ -29,13 +29,13 @@ public class Robot extends IterativeRobot
 	@Override
 	public void teleopPeriodic()
 	{
-		driveSubsystem.drive(logitech.getRawAxis(Constants.LEFT_Y), logitech.getRawAxis(Constants.RIGHT_Y), logitech.getRawAxis(Constants.LEFT_X), logitech.getRawAxis(Constants.RIGHT_X), logitech.getRawButton(Constants.X));
+		driveSubsystem.drive(logitech.getRawAxis(Constants.LEFT_Y), logitech.getRawAxis(Constants.RIGHT_Y), logitech.getRawAxis(Constants.LEFT_X), logitech.getRawAxis(Constants.RIGHT_X), (logitech.getRawButton(Constants.LEFT_STICK_BUTTON) || logitech.getRawButton(Constants.RIGHT_STICK_BUTTON)));
 		driveSubsystem.driveMode(logitech.getRawButton(Constants.BACK), logitech.getRawButton(Constants.START));
 		elevatorSubsystem.raiseLower(logitech.getRawButton(Constants.LEFT_BUMPER), (logitech.getRawAxis(Constants.LEFT_TRIGGER) >= TRIGGER_THRESHOLD));
 		if (logitech.getRawButton(Constants.RIGHT_BUMPER)) 
 			cannonSubsystem.fillInit();
 		if (logitech.getRawAxis(Constants.RIGHT_TRIGGER) >= TRIGGER_THRESHOLD)
-			cannonSubsystem.fireInit(logitech.getRawButton(Constants.Y));
+			cannonSubsystem.fireInit(logitech.getRawButton(Constants.X));
 	
 		cannonSubsystem.periodic();
 		driveSubsystem.periodic();
