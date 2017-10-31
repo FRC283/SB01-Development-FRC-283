@@ -1,10 +1,11 @@
 package org.usfirst.frc.team283.robot;
 
-import org.usfirst.frc.team283.robot.JoystickSchema.Schema;
+import org.usfirst.frc.team283.robot.Scheme.Schema;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CannonSubsystem
 {
@@ -36,7 +37,15 @@ public class CannonSubsystem
 		fireTimer = new Timer();
 	}
 	
-	@Schema(JoystickSchema.RIGHT_BUMPER)
+	/** Called once per cycle to update information */
+	void periodic()
+	{
+		this.fillPeriodic();
+		this.firePeriodic();
+		SmartDashboard.putBoolean("At Pressure", pressureSwitch.get());
+	}
+	
+	@Schema(Scheme.RIGHT_BUMPER)
 	/**
 	 * Begins filling if possible
 	 */
@@ -73,9 +82,11 @@ public class CannonSubsystem
 		{
 			//Do nothing, continue filling
 		}
+		System.out.println("Pressure Switch : " + pressureSwitch.get());
 	}
 	
-	@Schema(JoystickSchema.RIGHT_TRIGGER)
+	@Schema(Scheme.RIGHT_TRIGGER)
+	@Schema(value = Scheme.X, desc = "override fire (ignore tank pressure)")
 	/**
 	 * Fires the cannon
 	 * @param override - The state of the button used to override the pressure check

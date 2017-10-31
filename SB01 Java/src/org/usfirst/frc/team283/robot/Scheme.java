@@ -16,14 +16,15 @@ import javax.imageio.ImageIO;
 
 /**
  * The purpose of this class is to read annotations and generate a schema image based on those annotations
- * @author Benjamin
+ * @author Benjamin G. Ranson
+ * @version 1.1
  */
-public class JoystickSchema
+public class Scheme
 {
 	public static void main(String[] args)
 	{
-		JoystickSchema js = new JoystickSchema("SB01 Auto-Generated Controls", "org.usfirst.frc.team283.robot.DriveSubsystem", "org.usfirst.frc.team283.robot.CannonSubsystem", "org.usfirst.frc.team283.robot.ElevatorSubsystem");
-		js.generate();
+		Scheme s = new Scheme("Napalm", "org.usfirst.frc.team283.robot.DriveSubsystem", "org.usfirst.frc.team283.robot.CannonSubsystem", "org.usfirst.frc.team283.robot.ElevatorSubsystem");
+		s.generate();
 	}
 	
 	//Logitech Ports (Default)
@@ -111,18 +112,18 @@ public class JoystickSchema
 	}
 	
 	/** Our stored references to all classes in this project. Holds a max of 20 for now */
-	Class<?>[] classes = new Class[20];
+	private Class<?>[] classes = new Class[20];
 	/** Printed at the top of the Schema */
-	String schemaTitle = "";
+	private String robotName = "";
 	
 	/**
 	 * Takes a list of class names and fetches classes based on that
 	 * @param classNames - List of class names
-	 * @param title - printed at the top of schema
+	 * @param title - Name of robot
 	 */
-	JoystickSchema(String title, String... classNames)
+	Scheme(String title, String... classNames)
 	{
-		this.schemaTitle = title;
+		this.robotName = title;
 		for (int i = 0; i < classNames.length; i++)
 		{
 			try 
@@ -142,7 +143,7 @@ public class JoystickSchema
 	 * @param classInstances - List of objects of desired classes
 	 * @param title - printed at the top of schema
 	 */
-	JoystickSchema(String title, Object... classInstances)
+	Scheme(String title, Object... classInstances)
 	{
 		for (int i = 0; i < classInstances.length; i++)
 		{
@@ -155,6 +156,7 @@ public class JoystickSchema
 	 */
 	public void generate()
 	{
+		System.out.println("<=== Generating Controls Image ===>");
 		BufferedImage img = null;
 		try 
 		{
@@ -167,33 +169,45 @@ public class JoystickSchema
 		Graphics g = img.getGraphics();
 	    g.setFont(new Font("Consolas", Font.BOLD, 35));
 	    g.setColor(Color.BLACK);
-		g.drawString(this.schemaTitle + " - " + new Date(), TITLE_X, TITLE_Y);
+		g.drawString(this.robotName +  " Auto-Generated Controls - " + new Date(), TITLE_X, TITLE_Y);
 		g.setFont(new Font("Consolas", Font.PLAIN, 30));
 		for (Class<?> c : classes)
 		{
 			if (c != null)
 			{
+				System.out.println("Detected class : \"" + c.getName() + "\"");
+
 				Method[] methods = c.getDeclaredMethods();
-		
 				for (Method m : methods)
 				{
-					System.out.println("Currently checking Annotations of method: " + m.getName());
-					Schemas allSchemas = m.getAnnotation(Schemas.class);
-					System.out.println("Detected raw annots: " + allSchemas);
+					System.out.println("	Method Detected: " + m.getName());
+					Schema singleSchema = m.getAnnotation(Schema.class); //Only returns non-null for methods with ONE @Schema marker
+					Schemas allSchemas = m.getAnnotation(Schemas.class); //Only methods with multiple @Schema markers have "@SchemaS"
 					if (allSchemas != null)
 					{
 						for (Schema s : allSchemas.value())
 						{
+							System.out.println("		Annotation found at function \"" + m.getName() + "\" in class " + c.getName());
 							if (s.desc().equals(""))
 							{
-								System.out.println("blank");
-								g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + (s.value() * LABEL_INCR));
+								g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + ((s.value()) * LABEL_INCR));
 							}
 							else
 							{
-								System.out.println("desc: " + s.desc());
-								g.drawString(s.desc(), LABEL_BASE_X, LABEL_BASE_Y + (s.value() * LABEL_INCR));
+								g.drawString(s.desc(), LABEL_BASE_X, LABEL_BASE_Y + ((s.value()) * LABEL_INCR));
 							}
+						}
+					}
+					else if (singleSchema != null)
+					{
+						System.out.println("		Annotation found at function \"" + m.getName() + "\" in class " + c.getName());
+						if (singleSchema.desc().equals(""))
+						{
+							g.drawString(m.getName(), LABEL_BASE_X, LABEL_BASE_Y + ((singleSchema.value()) * LABEL_INCR));
+						}
+						else
+						{
+							g.drawString(singleSchema.desc(), LABEL_BASE_X, LABEL_BASE_Y + ((singleSchema.value()) * LABEL_INCR));
 						}
 					}
 				}
@@ -210,5 +224,6 @@ public class JoystickSchema
 	    {
 			e.printStackTrace();
 		}
+	    System.out.println("<=== End Generation ===>");
 	}
 }
