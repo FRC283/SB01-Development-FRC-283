@@ -23,7 +23,7 @@ public class Scheme
 {
 	public static void main(String[] args)
 	{
-		Scheme s = new Scheme("Napalm", "org.usfirst.frc.team283.robot.DriveSubsystem", "org.usfirst.frc.team283.robot.CannonSubsystem", "org.usfirst.frc.team283.robot.ElevatorSubsystem");
+		Scheme s = new Scheme("SB01", "org.usfirst.frc.team283.robot.DriveSubsystem", "org.usfirst.frc.team283.robot.CannonSubsystem", "org.usfirst.frc.team283.robot.ElevatorSubsystem");
 		s.generate();
 	}
 	
@@ -143,6 +143,7 @@ public class Scheme
 	 * @param classInstances - List of objects of desired classes
 	 * @param title - printed at the top of schema
 	 */
+	@Deprecated
 	Scheme(String title, Object... classInstances)
 	{
 		for (int i = 0; i < classInstances.length; i++)

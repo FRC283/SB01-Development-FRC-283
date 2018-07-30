@@ -5,11 +5,7 @@
 	<classpathentry kind="var" path="networktables" sourcepath="networktables.sources"/>
 	<classpathentry kind="var" path="opencv" sourcepath="opencv.sources"/>
 	<classpathentry kind="var" path="cscore" sourcepath="cscore.sources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-<<<<<<< HEAD
-=======
-	<classpathentry kind="lib" path="C:/Users/FRC_STANDARD_USER/wpilib/java/current/lib/WPILib.jar"/>
->>>>>>> branch 'master' of https://github.com/Benr444/SB01-Java-FRC-283
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
+	<classpathentry kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,8 +1,8 @@
 package org.usfirst.frc.team283.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class Robot extends IterativeRobot 
 {
@@ -15,7 +15,6 @@ public class Robot extends IterativeRobot
 	
 	Joystick logitech;
 	
-	@Override
 	public void robotInit() 
 	{
 		System.out.println("robotInit called");
