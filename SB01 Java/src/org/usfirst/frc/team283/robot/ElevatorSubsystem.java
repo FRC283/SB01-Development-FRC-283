@@ -21,7 +21,7 @@ public class ElevatorSubsystem
 	private DigitalInput backLimit;
 	private Talon controller;
 	
-	ElevatorSubsystem()
+	public ElevatorSubsystem()
 	{
 		frontLimit = new DigitalInput(Constants.FRONT_SWITCH);
 		backLimit = new DigitalInput(Constants.BACK_SWITCH);

@@ -1,8 +1,7 @@
 package org.usfirst.frc.team283.robot;
 
 import org.usfirst.frc.team283.robot.Scheme.Schema;
-
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem 
@@ -17,17 +16,17 @@ public class DriveSubsystem
 	/** Controls which drive mode we're in. True is tank, false is mechanum */
 	private boolean driveMode = TANK;
 	
-	Talon frontLeftController;
-	Talon frontRightController;
-	Talon backLeftController;
-	Talon backRightController;
+	Spark frontLeftController;
+	Spark frontRightController;
+	Spark backLeftController;
+	Spark backRightController;
 	
 	DriveSubsystem()
 	{
-		frontLeftController = new Talon(Constants.FRONT_LEFT_PORT);
-		frontRightController = new Talon(Constants.FRONT_RIGHT_PORT);
-		backLeftController = new Talon(Constants.BACK_LEFT_PORT);
-		backRightController = new Talon(Constants.BACK_RIGHT_PORT);
+		frontLeftController = new Spark(Constants.FRONT_LEFT_PORT);
+		frontRightController = new Spark(Constants.FRONT_RIGHT_PORT);
+		backLeftController = new Spark(Constants.BACK_LEFT_PORT);
+		backRightController = new Spark(Constants.BACK_RIGHT_PORT);
 	}
 	
 	/** Called once per cycle to update information */
@@ -63,6 +62,7 @@ public class DriveSubsystem
 			frontRightController.set(rym  * (slow ? SLOWSPEED : 1));
 			backLeftController.set(lym  * (slow ? SLOWSPEED : 1));
 			backRightController.set(rym * (slow ? SLOWSPEED : 1));
+			
 		}
 		else if (driveMode == MECHANUM) //X magnitudes are used to control robot
 		{
@@ -76,7 +76,18 @@ public class DriveSubsystem
 			frontRightController.set((rym - rxm) * (slow ? SLOWSPEED : 1));
 			backLeftController.set((lym - lxm)  * (slow ? SLOWSPEED : 1));
 			backRightController.set((rym + rxm)  * (slow ? SLOWSPEED : 1));
+			System.out.println("Left X : " + lxm);
+			System.out.println("Right X : " + rxm);
 		}
+		System.out.println("===========================================");
+		System.out.println("Left Y : " + lym);
+		System.out.println("Right Y : " + rym);
+		System.out.println("===========================================");
+		System.out.println("Front Left : " + frontLeftController.get());
+		System.out.println("Back Left : " + backLeftController.get());
+		System.out.println("Front Right : " + frontRightController.get());
+		System.out.println("Back Right : " + backRightController.get());
+		
 	}
 	
 	@Schema(value = Scheme.BACK, desc = "tank mode")
