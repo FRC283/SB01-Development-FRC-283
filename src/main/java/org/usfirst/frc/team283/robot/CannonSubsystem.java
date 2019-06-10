@@ -21,7 +21,6 @@ public class CannonSubsystem
 	private boolean fillBool = false;
 	/** Used the track the state of the split function */
 	private boolean fireBool = false;
-	
 	DigitalInput pressureSwitch;
 	Solenoid fireSolenoid;
 	Solenoid fillSolenoid;
