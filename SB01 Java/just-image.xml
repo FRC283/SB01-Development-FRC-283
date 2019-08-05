@@ -1,0 +1,12 @@
+<xml version="1.0">
+<dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Image">
+		<location x="15" y="10"/>
+		<width>835</width>
+		<height>736</height>
+		<property name="Image File" value="C:\Users\FRCTeam283\Documents\SB01 Development\SB01-Development-FRC-283\SB01 Java\ControlsImage.png"/>
+	</static-widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
